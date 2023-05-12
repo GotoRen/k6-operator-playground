@@ -1,0 +1,10 @@
+# https://github.com/prometheus-community/helm-charts/blob/prometheus-11.16.8/charts/prometheus/values.yaml
+---
+server:
+  extraFlags:
+    - web.enable-lifecycle
+    - web.enable-remote-write-receiver
+    - enable-feature=native-histograms
+
+prometheus-node-exporter:
+  enabled: false
