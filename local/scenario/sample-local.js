@@ -9,7 +9,7 @@ export const options = {
 };
 
 export default function () {
-  const result = http.get("http://host.k3d.internal:8080");
+  const result = http.get("http://localhost:8080");
   check(result, {
     "http response status code is 200": result.status === 200,
   });

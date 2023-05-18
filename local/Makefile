@@ -10,9 +10,13 @@ STOP=$(COMPOSE) stop
 RM=$(COMPOSE) rm
 DOWN=$(COMPOSE) down
 REMOVE=$(COMPOSE) rm -fsv
-
-
-
+# kubectl parameters
+KUBECTL=kubectl
+GET=$(KUBECTL) get
+DELETE=$(KUBECTL) delete
+# k6 parameters
+K6=k6
+RUN=$(K6) run
 # target
 NGINX=$(EXEC) nginx
 GRAFANA=$(EXEC) grafana
@@ -24,11 +28,21 @@ INFLUXDB=$(EXEC) influxdb
 #===============================================================
 .PHONY: run
 run: ## 負荷試験実行
-	k6 run ./scenario/sample.js -u 100 --rps 100
+	$(RUN) ./scenario/sample.js -u 100 --rps 100
 
 .PHONY: run/out
 run/out: ## 負荷試験を実行して、結果をinfluxdbに出力
-	k6 run ./scenario/sample.js -u 100 --rps 100 --out influxdb=http://localhost:8086/loadtest
+	$(RUN) ./scenario/sample.js -u 100 --rps 100 --out influxdb=http://localhost:8086/loadtest
+
+.PHONY: run/job
+run/job: delete/job ## job を生成
+	$(KUBECTL) apply -f ./scenario/custom-resource.yaml
+
+.PHONY: delete/job
+delete/job: ## job を削除
+	@if $(GET) -f ./scenario/custom-resource.yaml &> /dev/null; then \
+		$(DELETE) -f ./scenario/custom-resource.yaml; \
+	fi
 
 
 

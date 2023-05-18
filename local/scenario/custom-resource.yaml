@@ -8,4 +8,4 @@ spec:
   script:
     configMap:
       name: k6-operator-sample
-      file: ./scenario/sample.js
+      file: sample.js
