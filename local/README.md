@@ -124,3 +124,5 @@ $ stern k6-load-test
 ```
 
 ## 負荷試験の実行タイミング
+
+<img width="1727" alt="スクリーンショット 2023-05-18 午後1 27 11 2" src="https://github.com/GotoRen/k6-load-testing/assets/63791288/31d3e242-e0d4-4ee6-9940-e6580783d608">
