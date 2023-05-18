@@ -35,6 +35,26 @@ https://k6.io/blog/running-distributed-tests-on-k8s/
 $ k3d cluster create loadtest-cluster
 ```
 
+- k6 Operator をデプロイ
+
+```shell
+$ git clone https://github.com/grafana/k6-operator && cd k6-operator
+
+$ make deploy
+namespace/k6-operator-system created
+customresourcedefinition.apiextensions.k8s.io/k6s.k6.io created
+serviceaccount/k6-operator-controller created
+role.rbac.authorization.k8s.io/k6-operator-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/k6-operator-manager-role created
+clusterrole.rbac.authorization.k8s.io/k6-operator-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/k6-operator-proxy-role created
+rolebinding.rbac.authorization.k8s.io/k6-operator-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/k6-operator-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/k6-operator-proxy-rolebinding created
+service/k6-operator-controller-manager-metrics-service created
+deployment.apps/k6-operator-controller-manager created
+```
+
 - ConfigMap でシナリオをデプロイ
 
 ```shell
