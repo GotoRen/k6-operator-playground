@@ -49,3 +49,18 @@ services:
         target: /var/lib/influxdb
         bind:
           create_host_path: true
+
+  prometheus:
+    image: prom/prometheus
+    container_name: loadtest_prometheus
+    ports:
+      - mode: ingress
+        target: 9090
+        published: 9090
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: ./.docker/prometheus/prometheus.yaml
+        target: /etc/prometheus/prometheus.yml
+        bind:
+          create_host_path: true

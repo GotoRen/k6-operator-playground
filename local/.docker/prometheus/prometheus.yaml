@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: "codelab-monitor"
+
+scrape_configs:
+  - job_name: "load-test"
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - "as.local.cyphonic.org:9100"
+          - "nms01.local.cyphonic.org:9100"
+          - "10.0.100.131:9100"
+          - "10.0.100.132:9100"
+          - "10.0.100.133:9100"
+          - "10.0.100.134:9100"
+          - "10.0.100.135:9100"
+          - "10.0.100.136:9100"
+          - "10.0.100.137:9100"
+          - "10.0.100.138:9100"
+          - "10.0.100.139:9100"
+          - "10.0.100.140:9100"
+          - "10.0.100.141:9100"
+          - "10.0.100.145:9100"
+          - "10.0.100.146:9100"
+
+remote_write:
+  - url: http://localhost:8428/api/v1/write

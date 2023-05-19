@@ -28,11 +28,11 @@ INFLUXDB=$(EXEC) influxdb
 #===============================================================
 .PHONY: run
 run: ## 負荷試験実行
-	$(RUN) ./scenario/sample.js -u 100 --rps 100
+	$(RUN) ./scenario/sample-local.js -u 100 --rps 100
 
 .PHONY: run/out
 run/out: ## 負荷試験を実行して、結果をinfluxdbに出力
-	$(RUN) ./scenario/sample.js -u 100 --rps 100 --out influxdb=http://localhost:8086/loadtest
+	$(RUN) ./scenario/sample-local.js -u 100 --rps 100 --out influxdb=http://localhost:8086/loadtest
 
 .PHONY: run/job
 run/job: delete/job ## job を生成

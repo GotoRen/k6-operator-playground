@@ -1,0 +1,53 @@
+name: Run Command
+on:
+  repository_dispatch:
+    types:
+    - run-command
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Create URL to the run output
+        id: vars
+        run: echo ::set-output name=run-url::https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
+          body: |
+            [Command run output][1]
+            [1]: ${{ steps.vars.outputs.run-url }}
+      - name: Dump the client payload context
+        env:
+          PAYLOAD_CONTEXT: ${{ toJson(github.event.client_payload) }}
+        run: echo "$PAYLOAD_CONTEXT"
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud Platform
+        id: auth-gcloud
+        uses: google-github-actions/auth@v0
+        with:
+          create_credentials_file: true
+          access_token_lifetime: 900s
+          workload_identity_provider: 'xxxx'
+          service_account: ‘xxxx’'
+
+      - name: Get GKE Cluster Credentials
+        run: |-
+          gcloud container clusters get-credentials xxxx --region asia-northeast1
+      - name: Run Load Testing
+        env:
+          PROJECT: ${{ github.event.client_payload.slash_command.args.named.project }}
+          SCRIPT: ${{ github.event.client_payload.slash_command.args.named.script }}
+          ADDITIONAL_ARGS: ${{ github.event.client_payload.slash_command.args.named.args }}
+          PARAL: ${{ github.event.client_payload.slash_command.args.named.paral }}
+        shell: bash
+        run: .github/bin/run-load-testing.sh
