@@ -19,3 +19,8 @@ $ ./bin/k6 run ./local/scenario/case-1.js -u 100 --rps 100 -d 10s --out dashboar
 
 - ダッシュボード確認
   - http://localhost:5665/ui/?endpoint=/
+
+### kube-prom-stack
+
+- prometheus -> `./install.sh`
+- grafana -> `./install.sh`
