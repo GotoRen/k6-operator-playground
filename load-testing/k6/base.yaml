@@ -1,0 +1,15 @@
+apiVersion: k6.io/v1alpha1
+kind: K6
+metadata:
+  name: k6-operator-example01
+spec:
+  parallelism: 1
+  arguments: -o experimental-prometheus-rw
+  script:
+    configMap:
+      name: k6-operator-example01
+      file: load-test.js
+  runner:
+    env:
+      - name: K6_PROMETHEUS_RW_SERVER_URL
+        value: http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090/api/v1/write

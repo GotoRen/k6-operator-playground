@@ -1,0 +1,13 @@
+resources:
+  - "namespace.yaml"
+  - "serviceaccount.yaml"
+  - "configmap.yaml"
+  - "pvc.yaml"
+  - "clusterrole.yaml"
+  - "clusterrolebinding.yaml"
+  - "service.yaml"
+  - "deployment.yaml"
+  - "statefulset.yaml"
+  - "secret.yaml"
+  - "role.yaml"
+  - "rolebinding.yaml"
