@@ -1,0 +1,2 @@
+resources:
+  - "k6.yaml"

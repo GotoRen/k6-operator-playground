@@ -7,3 +7,7 @@ helm upgrade grafana grafana/grafana \
   --namespace monitoring \
   -f ./values.yaml \
   ;
+
+##########
+helm repo add k6-operator
+helm repo update

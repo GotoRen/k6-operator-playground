@@ -126,3 +126,15 @@ $ stern k6-load-test
 ## 負荷試験の実行タイミング
 
 <img width="1727" alt="スクリーンショット 2023-05-18 午後1 27 11 2" src="https://github.com/GotoRen/k6-load-testing/assets/63791288/31d3e242-e0d4-4ee6-9940-e6580783d608">
+
+---
+
+kubectl get "$(kubectl api-resources --namespaced=true --verbs=list -o name | tr "\n" "," | sed -e 's/,$//')"
+
+```shell
+k get po
+NAME                                      READY   STATUS      RESTARTS   AGE
+k6-operator-example01-initializer-7ls9h   0/1     Completed   0          6m6s
+k6-operator-example01-starter-r5tq8       0/1     Completed   0          105s
+k6-operator-example01-1-4rwvs             0/1     Completed   0          107s
+```
