@@ -3,13 +3,15 @@
 ## 使用ツール
 
 - マニフェスト管理
+
   - Kustomize<br />
     <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/0abf4b23-602f-4486-b480-0f83d4df7e49" alt="Kustomize" width="80">
- 
+
 - モニタリング
+
   - kube-prometheus-stack<br />
     <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/e8871511-04fc-4e52-b6d3-4bf4f27c22eb" alt="kube-prometheus-stack" width="80">
-    
+
 - 負荷試験
   - k6-operator<br />
     <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/1e241c8d-62c7-45fe-b293-2fa83703297b" alt="k6-operator" width="80">
