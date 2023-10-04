@@ -65,6 +65,8 @@ $ kubectl port-forward -n monitoring service/grafana 3000:80
   - Username: `admin`
   - Password: `0VAZVeURGNMcKgtgksoOtvFOjGPWB7LUB7u7DKui`
 - <u>Home >> Connections >> Data sources</u>
+![dashboard-source](https://github.com/GotoRen/k6-operator-playground/assets/63791288/e94c0641-e4cf-486e-8792-4a9cb156c9cd)
+
   - Prometheus
     - Name: Prometheus
     - Prometheus server URL: http://prometheus-server.monitoring.svc.cluster.local:80
