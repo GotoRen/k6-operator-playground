@@ -28,6 +28,8 @@ spec:
         value: http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
 ```
 
+![prometheus-18492](https://github.com/GotoRen/k6-operator-playground/assets/63791288/fdc9e9a4-d81d-4898-bf7d-6f33082775ab)
+
 - InfluxDB にメトリクスを流す場合
 
 ```yaml
@@ -44,3 +46,5 @@ spec:
       name: k6-operator-example01
       file: load-test.js
 ```
+
+![influxdb-2587](https://github.com/GotoRen/k6-operator-playground/assets/63791288/f0d7673f-afc3-45b3-902b-72d60f1738d1)
