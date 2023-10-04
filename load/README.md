@@ -48,7 +48,7 @@ spec:
       file: load-test.js
 ```
 
-![influxdb-2587](https://github.com/GotoRen/k6-operator-playground/assets/63791288/f0d7673f-afc3-45b3-902b-72d60f1738d1)
+![influxdb-2587](https://github.com/GotoRen/k6-operator-playground/assets/63791288/1c0a7dd5-3cef-4ff0-a9a1-38f51983636d)
 
 - InfluxDB に接続してデータを確認
 
