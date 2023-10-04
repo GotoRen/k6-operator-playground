@@ -32,7 +32,7 @@
 
 ```shell
 ### 負荷試験シナリオを書き換えた場合
-$ generate/configmap
+$ make generate/configmap
 
 ### 負荷試験を実行
 $ make run/job
