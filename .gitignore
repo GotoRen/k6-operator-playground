@@ -173,4 +173,4 @@ go.work
 /local/.influxdb
 
 # load testing reports
-summary.html
+/local/reports/summary.html
