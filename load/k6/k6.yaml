@@ -13,5 +13,4 @@ spec:
   runner:
     env:
       - name: K6_PROMETHEUS_RW_SERVER_URL
-        # value: http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
-        value: http://prometheus-server.monitoring.svc.cluster.local/api/v1/write
+        value: http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write

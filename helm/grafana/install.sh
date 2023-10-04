@@ -1,5 +1,6 @@
 #!/bin/bash
 
+kubectl create namespace monitoring
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm upgrade grafana grafana/grafana \
@@ -7,7 +8,3 @@ helm upgrade grafana grafana/grafana \
   --namespace monitoring \
   -f ./values.yaml \
   ;
-
-##########
-helm repo add k6-operator
-helm repo update
