@@ -19,4 +19,4 @@ data:
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: k6-operator-_example03
+  name: k6-operator-example03

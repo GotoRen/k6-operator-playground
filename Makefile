@@ -1,73 +1,30 @@
-# kubectl parameters
 KUBECTL = kubectl
 APPLY = $(KUBECTL) apply
 GET = $(KUBECTL) get
 DELETE = $(KUBECTL) delete
-PORT_FORWARD = $(KUBECTL) port-forward
-# k6 parameters
-K6 = k6
-RUN = $(K6) run
-# kustomize
-KUSTOMIZE = kustomize
-BUILD = $(KUSTOMIZE) build
-CREATE = $(KUSTOMIZE) create
 
-BASE := ./base
-OVERLAY := ./overlay
 
 NAME ?= example01
 PARAL ?= 1
 
 
 
-# InfluxDB
-#===============================================================
-.PHONY: port-forward
-port-foward: ## InfluxDBを公開
-	$(PORT_FORWARD) svc/influxdb 8086:8086
-
-
-
-# Kustomize command
-#===============================================================
-.PHONY: build
-build: ## マニフェスト 確認
-	$(BUILD) $(BASE)
-
-.PHONY: deploy
-deploy: ## マニフェスト 適用
-	$(BUILD) $(BASE) | $(APPLY) -f -
-
-.PHONY: delete
-delete: ## マニフェスト 作成
-	$(BUILD) $(BASE) | $(APPLY) -f -
-
-.PHONY: create
-create: ## kustomization 生成
-	$(CREATE) --autodetect $(BASE)
-
-
-
 # Load testing
 #===============================================================
 .PHONY: generate/configmap
-generate/configmap: ## ConfigMapを生成
-	sh ./base/load/scripts/gen-k6-scenarios-configmaps.sh
-	find ./base/load/scenarios/ -type f -name "configmap.yaml" -exec $(APPLY) -f {} \;
+generate/configmap: ## シナリオを追加
+	sh ./load/scripts/gen-k6-scenarios-configmaps.sh
+	find ./load/scenarios/ -type f -name "configmap.yaml" -exec $(APPLY) -f {} \;
 
 .PHONY: run/job
-run/job: delete/job ## 負荷試験実行
-	sh ./base/load/scripts/run-load-testing.sh $(NAME) $(PARAL)
-
-.PHONY: delete/job
-delete/job: ## JOBを削除
-	@if $(GET) -f ./base/load/k6/k6.yaml &> /dev/null; then \
-		$(DELETE) -f ./base/load/k6/k6.yaml; \
-	fi
+run/job: stop/job ## 負荷試験を実行
+	sh ./load/scripts/run-load-testing.sh $(NAME) $(PARAL)
 
 .PHONY: stop/job
-stop/job:  ## 負荷試験停止
-	kubectl delete k6
+stop/job: ## 負荷試験を停止
+	@if $(GET) -f ./load/k6/k6.yaml &> /dev/null; then \
+		$(DELETE) -f ./load/k6/k6.yaml; \
+	fi
 
 
 

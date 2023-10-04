@@ -58,7 +58,7 @@ $ k3d cluster delete k6-operator-playground
 ## Grafana ダッシュボード設定
 
 ```shell
-$ kubectl port-forward -n monitoring service/grafana 3000:80
+$ kubectl port-forward -n monitoring svc/grafana 3000:80
 ```
 
 - http://localhost:3000
@@ -89,3 +89,9 @@ $ kubectl port-forward -n monitoring service/grafana 3000:80
     - **InfluxDB**
     - **2587**
     - https://grafana.com/grafana/dashboards/2587-k6-load-testing-results/
+
+## Prometheus ダッシュボード確認
+
+```shell
+$ kubectl port-forward -n monitoring svc/prometheus-server 9090:80
+```

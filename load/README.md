@@ -3,10 +3,18 @@
 ## 概要
 
 - 負荷試験スクリプトを配置する
-- ConfigMap Generator で 負荷試験スクリプトを生成
-  - JavaScript >> ConfigMap >> k6 Custom Resource
+- 手順：JavaScript >> ConfigMap >> k6 Custom Resource
+  - 負荷試験シナリオ（JavaScript）から ConfigMap を生成
+  - k6 マニフェストから ConfigMap の値を読み込んで負荷試験を実行
 
-## k6 マニフェストサンプル
+## 負荷試験実行用 k6 マニフェストのサンプル
+
+### 負荷試験データの書き込み先
+
+- Prometheus
+  - http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
+- InfluxDB
+  - http://influxdb.influxdb.svc.cluster.local:8086/loadtest
 
 ### Prometheus にメトリクスを流す場合
 
@@ -79,3 +87,7 @@ time                expected_response instance_id job_name                method
 1696396044799971307 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 173.752688
 1696396044810442320 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 171.931634
 ```
+
+## 参考
+
+- https://k6.io/docs/results-output/real-time/
