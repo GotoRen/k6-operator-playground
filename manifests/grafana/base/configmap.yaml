@@ -28,8 +28,8 @@ data:
   datasoucers.yaml: |
     apiVersion: 1
     datasources:
-    - access: proxy
-      isDefault: true
-      name: Prometheus
-      type: prometheus
-      url: http://prometheus-server:80
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.monitoring.svc.cluster.local:80
+        access: proxy
+        isDefault: true

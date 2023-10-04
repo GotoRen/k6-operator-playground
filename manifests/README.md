@@ -10,7 +10,7 @@
 
 ## 使い方
 
-- k3d でクラスタを起動
+- k3d でクラスタを構築
 
 ```shell
 $ k3d cluster create k6-operator-playground
@@ -31,13 +31,17 @@ $ kustomize build ./base | kubectl apply -f -
 
 $ cd grafana
 $ kustomize build ./base | kubectl apply -f -
+```
 
+```shell
 ### InfluxDB
 $ kubectl create namespace influxdb
 
 $ cd influxdb
 $ kustomize build ./base | kubectl apply -f -
+```
 
+```shell
 ### k6-operator
 $ kubectl create namespace k6-operator
 
@@ -63,7 +67,7 @@ $ kubectl port-forward -n monitoring service/grafana 3000:80
 - <u>Home >> Connections >> Data sources</u>
   - Prometheus
     - Name: Prometheus
-    - Prometheus server URL: http://prometheus-server:80
+    - Prometheus server URL: http://prometheus-server.monitoring.svc.cluster.local:80
   - InfluxDB
     - Name: InfluxDB
     - HTTP URL: http://influxdb.influxdb.svc.cluster.local:8086

@@ -10,7 +10,7 @@ export const options = {
 };
 
 export default function () {
-  const result = http.get("https://test.k6.io");
+  const result = http.get("http://nginx.nginx.svc.cluster.local:8081");
   check(result, {
     "http response status code is 200": result.status === 200,
   });
