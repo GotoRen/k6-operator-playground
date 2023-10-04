@@ -17,7 +17,7 @@ generate/configmap: ## シナリオを追加
 	find ./load/scenarios/ -type f -name "configmap.yaml" -exec $(APPLY) -f {} \;
 
 .PHONY: run/job
-run/job: stop/job ## 負荷試験を実行
+run/job: stop/job ## 負荷試験を実行: $ make run/job NAME=[シナリオ名] PARAL=[同時実行数]
 	sh ./load/scripts/run-load-testing.sh $(NAME) $(PARAL)
 
 .PHONY: stop/job
