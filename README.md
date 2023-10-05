@@ -7,16 +7,16 @@
 - マニフェスト管理
 
   - Kustomize<br />
-    <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/0abf4b23-602f-4486-b480-0f83d4df7e49" alt="Kustomize" width="80">
+    <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/fbd77eb1-da77-40ce-bf4d-ba8c5fdb1f38" alt="Kustomize" width="80">
 
 - モニタリング
 
   - kube-prometheus-stack<br />
-    <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/e8871511-04fc-4e52-b6d3-4bf4f27c22eb" alt="kube-prometheus-stack" width="80">
+    <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/5b7a359f-f450-48bc-9024-6c5e1f33da17" alt="kube-prometheus-stack" width="80">
 
 - 負荷試験
   - k6-operator<br />
-    <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/1e241c8d-62c7-45fe-b293-2fa83703297b" alt="k6-operator" width="80">
+    <img src="https://github.com/GotoRen/k6-operator-playground/assets/63791288/2d1f5906-ae71-4310-ad68-482e7d991783" alt="k6-operator" width="80">
 
 ## ディレクトリ構成
 
@@ -29,6 +29,21 @@
 ├── manifests ・・・ 負荷試験に必要となるリソース用の Kustomize マニフェストを配置
 └── services  ・・・ 負荷試験の対象となるサービスを配置
 ```
+
+## 負荷試験アーキテクチャ
+
+![k6-operator-architecture](https://github.com/GotoRen/k6-operator-playground/assets/63791288/8c65d565-b920-4b0b-8a95-797267e82a41)
+
+- **負荷試験クラスタ（このリポジトリ）**
+  - 負荷試験を実行する側のクラスタ
+  - 負荷試験レポートは Prometheus または InfluxDB に流す（二経路準備しておく）
+    - Prometheus：大規模負荷試験においてより高度な耐久性を得られる
+    - InfluxDB：シンプルな構成で軽い負荷試験が容易
+- **ターゲットクラスタ（別途準備）**
+  - 負荷試験を受ける側のクラスタ
+  - LB（基本的には L7SLB）に向けて実行する
+    - パブリッククラウド：事前に暖気申請等を行なっておく
+    - プライベートクラウド（MetalLB 等のベアメタル）：パケット分散率及びおよび負荷状況に合わせて LB 専用のインスタンスを準備する
 
 ## 使い方
 

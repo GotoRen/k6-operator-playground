@@ -66,7 +66,7 @@ $ kubectl port-forward -n monitoring svc/grafana 3000:80
   - Password: `0VAZVeURGNMcKgtgksoOtvFOjGPWB7LUB7u7DKui`
 - <u>Home >> Connections >> Data sources</u>
 
-  ![dashboard-source](https://github.com/GotoRen/k6-operator-playground/assets/63791288/e94c0641-e4cf-486e-8792-4a9cb156c9cd)
+  ![dashboard-source](https://github.com/GotoRen/k6-operator-playground/assets/63791288/30f85c2d-7d23-4aa1-aba9-79208eff121f)
 
   - Prometheus
     - Name: Prometheus

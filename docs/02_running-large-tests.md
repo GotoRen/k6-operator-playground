@@ -65,8 +65,8 @@
 
 ## 【その他】 InfluxDB は Version 1.8 を使用する
 
-- InfluxDB2.0 を使用する場合、自前でビルドする必要がある
-- https://github.com/grafana/xk6-output-influxdb
+- xk6 を使用する場合において、InfluxDB Version 2.0 以降を使用する場合、自前でビルドする必要がある
+  - https://github.com/grafana/xk6-output-influxdb
 
 ## 参考
 

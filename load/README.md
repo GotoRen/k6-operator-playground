@@ -37,7 +37,7 @@ spec:
         value: http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
 ```
 
-![prometheus-18492](https://github.com/GotoRen/k6-operator-playground/assets/63791288/fdc9e9a4-d81d-4898-bf7d-6f33082775ab)
+![prometheus-1849](https://github.com/GotoRen/k6-operator-playground/assets/63791288/7d00acbf-31cf-45b3-a79f-c0356737e0a0)
 
 ### InfluxDB にメトリクスを流す場合
 
@@ -56,7 +56,7 @@ spec:
       file: load-test.js
 ```
 
-![influxdb-2587](https://github.com/GotoRen/k6-operator-playground/assets/63791288/1c0a7dd5-3cef-4ff0-a9a1-38f51983636d)
+![influxdb-2587](https://github.com/GotoRen/k6-operator-playground/assets/63791288/9f58d490-f14d-4d37-9e66-b82b497ef7a9)
 
 - InfluxDB に接続してデータを確認
 

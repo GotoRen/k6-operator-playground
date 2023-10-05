@@ -18,7 +18,7 @@ $ docker compose up -d
   - Password: password
 - Home >> Connections >> Data sources
 
-  ![dashboard-source](https://github.com/GotoRen/k6-operator-playground/assets/63791288/6059370e-882b-4f41-b6c7-185e6846447a)
+  ![dashboard-source](https://github.com/GotoRen/k6-operator-playground/assets/63791288/624ceedc-079b-4906-b897-f6e0455429cd)
 
   - Prometheus
     - Name: Prometheus
