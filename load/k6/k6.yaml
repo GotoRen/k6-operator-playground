@@ -16,7 +16,7 @@ spec:
         value: http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
     metadata:
       labels: # k6 ワークロード（Sender Pod）に伝搬するラベルを設定
-        app.kubernetes.io/owner: cloud-platform
+        app.kubernetes.io/owner: sre
         app.kubernetes.io/group: monitoring
         app.kubernetes.io/subgroup: load-testing
         app.kubernetes.io/name: k6
