@@ -26,10 +26,10 @@ CURRENT   NAME                         CLUSTER                      AUTHINFO    
 ### Prometheus/Grafana
 $ kubectl create namespace monitoring
 
-$ cd prometheus
+$ cd manifests/prometheus
 $ kustomize build ./base | kubectl apply -f -
 
-$ cd grafana
+$ cd manifests/grafana
 $ kustomize build ./base | kubectl apply -f -
 ```
 
@@ -37,7 +37,7 @@ $ kustomize build ./base | kubectl apply -f -
 ### InfluxDB
 $ kubectl create namespace influxdb
 
-$ cd influxdb
+$ cd manifests/influxdb
 $ kustomize build ./base | kubectl apply -f -
 ```
 
@@ -45,7 +45,7 @@ $ kustomize build ./base | kubectl apply -f -
 ### k6-operator
 $ kubectl create namespace k6-operator
 
-$ cd k6-operator
+$ cd manifests/k6-operator
 $ kustomize build ./base | kubectl apply -f -
 ```
 
