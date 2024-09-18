@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/env: playground
+      app.kubernetes.io/owner: sre
+      app.kubernetes.io/group: monitoring
+    includeTemplates: true
+helmCharts:
+  - name: k6-operator
+    repo: https://grafana.github.io/helm-charts
+    version: 3.8.0
+    releaseName: k6-operator
+    valuesFile: ./values.yaml
+    namespace: k6-operator
+    includeCRDs: true

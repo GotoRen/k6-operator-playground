@@ -12,7 +12,7 @@
 ### 負荷試験データの書き込み先
 
 - Prometheus
-  - http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
+  - http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090/api/v1/write
 - InfluxDB
   - http://influxdb.influxdb.svc.cluster.local:8086/loadtest
 
@@ -34,7 +34,7 @@ spec:
   runner:
     env:
       - name: K6_PROMETHEUS_RW_SERVER_URL
-        value: http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
+        value: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090/api/v1/write
 ```
 
 ![prometheus-1849](https://github.com/GotoRen/k6-operator-playground/assets/63791288/7d00acbf-31cf-45b3-a79f-c0356737e0a0)
