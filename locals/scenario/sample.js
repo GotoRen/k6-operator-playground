@@ -10,7 +10,7 @@ export const options = {
 };
 
 export default function () {
-  const result = http.get("http://localhost:8080/"); // nginx endpoint
+  const result = http.get("https://test.k6.io"); // 負荷試験対象エンドポイント
   check(result, {
     "http response status code is 200": result.status === 200,
   });

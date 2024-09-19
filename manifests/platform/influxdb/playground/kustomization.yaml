@@ -9,8 +9,8 @@ labels:
 helmCharts:
   - name: influxdb
     repo: https://helm.influxdata.com
-    version: 4.12.0
-    releaseName: influxdb2
+    version: 4.12.5
+    releaseName: influxdb
     valuesFile: ./values.yaml
     namespace: influxdb
     includeCRDs: true

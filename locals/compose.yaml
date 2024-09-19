@@ -5,7 +5,7 @@ services:
     build:
       context: ./.docker/nginx
       dockerfile: ./Dockerfile
-    container_name: nginx-local
+    container_name: nginx.local
     environment:
       TZ: Asia/Tokyo
     ports:
@@ -21,7 +21,7 @@ services:
     build:
       context: ./.docker/prometheus
       dockerfile: ./Dockerfile
-    container_name: prometheus-local
+    container_name: prometheus.local
     environment:
       TZ: Asia/Tokyo
     ports:
@@ -47,7 +47,7 @@ services:
     build:
       context: ./.docker/grafana
       dockerfile: ./Dockerfile
-    container_name: grafana-local
+    container_name: grafana.local
     environment:
       TZ: Asia/Tokyo
       GF_SECURITY_ADMIN_PASSWORD: password
@@ -63,15 +63,31 @@ services:
     privileged: true
     restart: always
     tty: true
+    volumes:
+      - type: bind
+        source: ./.docker/grafana/dashboards
+        target: /etc/grafana/provisioning/dashboards
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ./.docker/grafana/datasources
+        target: /etc/grafana/provisioning/datasources
+        bind:
+          create_host_path: true
 
   influxdb:
     build:
       context: ./.docker/influxdb
       dockerfile: ./Dockerfile
-    container_name: influxdb-local
+    container_name: influxdb.local
     environment:
       TZ: Asia/Tokyo
-      INFLUXDB_DB: "loadtest"
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: password
+      DOCKER_INFLUXDB_INIT_ORG: loadtest_organization
+      DOCKER_INFLUXDB_INIT_BUCKET: loadtest_result
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: admin_token
     ports:
       - mode: ingress
         target: 8086
