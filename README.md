@@ -1,5 +1,11 @@
 # k6-operator-playground
 
+| Name                  | Application version | Chart version |
+| :-------------------- | ------------------: | ------------: |
+| influxdb              |             v2.7.10 |             - |
+| kube-prometheus-stack |                   - |       v62.7.0 |
+| k6-operator           |             v0.0.16 |        v3.8.0 |
+
 - Load test simulation using k6-operator.
 
 ## 使用ツール

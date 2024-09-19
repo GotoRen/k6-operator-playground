@@ -1,0 +1,101 @@
+name: k6-operator-playground
+
+services:
+  nginx:
+    build:
+      context: ./.docker/nginx
+      dockerfile: ./Dockerfile
+    container_name: nginx.local
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - mode: ingress
+        target: 80
+        published: 8080
+        protocol: tcp
+    privileged: true
+    restart: always
+    tty: true
+
+  prometheus:
+    build:
+      context: ./.docker/prometheus
+      dockerfile: ./Dockerfile
+    container_name: prometheus.local
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - mode: ingress
+        target: 9090
+        published: 9090
+        protocol: tcp
+    privileged: true
+    command: ## RemoteWrite 有効化
+      - --web.enable-remote-write-receiver
+      - --enable-feature=native-histograms
+      - --config.file=/etc/prometheus/prometheus.yml
+    restart: always
+    tty: true
+    volumes:
+      - type: bind
+        source: ./.docker/prometheus/prometheus.yaml
+        target: /etc/prometheus/prometheus.yml
+        bind:
+          create_host_path: true
+
+  grafana:
+    build:
+      context: ./.docker/grafana
+      dockerfile: ./Dockerfile
+    container_name: grafana.local
+    environment:
+      TZ: Asia/Tokyo
+      GF_SECURITY_ADMIN_PASSWORD: password
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SERVER_DOMAIN: localhost
+      GF_SERVER_HTTP_PORT: 3000
+      GF_SERVER_PROTOCOL: http
+    ports:
+      - mode: ingress
+        target: 3000
+        published: 3000
+        protocol: tcp
+    privileged: true
+    restart: always
+    tty: true
+    volumes:
+      - type: bind
+        source: ./.docker/grafana/dashboards
+        target: /etc/grafana/provisioning/dashboards
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ./.docker/grafana/datasources
+        target: /etc/grafana/provisioning/datasources
+        bind:
+          create_host_path: true
+
+  influxdb:
+    build:
+      context: ./.docker/influxdb
+      dockerfile: ./Dockerfile
+    container_name: influxdb.local
+    environment:
+      TZ: Asia/Tokyo
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: password
+      DOCKER_INFLUXDB_INIT_ORG: loadtest_organization
+      DOCKER_INFLUXDB_INIT_BUCKET: loadtest_result
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: admin_token
+    ports:
+      - mode: ingress
+        target: 8086
+        published: 8086
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: ./.influxdb/data
+        target: /var/lib/influxdb
+        bind:
+          create_host_path: true

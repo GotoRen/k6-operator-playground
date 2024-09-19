@@ -73,8 +73,10 @@ $ kubectl port-forward -n monitoring svc/grafana 3000:80
     - Prometheus server URL: http://prometheus-server.monitoring.svc.cluster.local:80
   - InfluxDB
     - Name: InfluxDB
-    - HTTP URL: http://influxdb.influxdb.svc.cluster.local:8086
-    - Database: loadtest
+    - HTTP URL: http://influxdb2.influxdb.svc.cluster.local:8086
+    - Database: `loadtest`
+    - User: `admin`
+    - Password: `hoge`
 
 - <u>Home >> Dashboards >> New >> Import</u>
   - Official k6 Test Result

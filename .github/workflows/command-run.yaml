@@ -38,7 +38,7 @@ jobs:
           create_credentials_file: true
           access_token_lifetime: 900s
           workload_identity_provider: 'xxxx'
-          service_account: ‘xxxx’'
+          service_account: 'xxxx'
 
       - name: Get GKE Cluster Credentials
         run: |-
