@@ -12,9 +12,9 @@
 ### 負荷試験データの書き込み先
 
 - Prometheus
-  - http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090/api/v1/write
+  - http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
 - InfluxDB
-  - http://influxdb.influxdb.svc.cluster.local:8086/loadtest
+  - http://influxdb2.influxdb.svc.cluster.local:80
 
 ### Prometheus にメトリクスを流す場合
 
@@ -26,7 +26,7 @@ metadata:
   namespace: k6-operator
 spec:
   parallelism: 1
-  arguments: -o experimental-prometheus-rw
+  arguments: -o experimental-prometheus-rw ## Prometheus Remote-Write を使用
   script:
     configMap:
       name: k6-operator-example01
@@ -49,44 +49,32 @@ metadata:
   namespace: k6-operator
 spec:
   parallelism: 1
-  arguments: --out influxdb=http://influxdb.influxdb.svc.cluster.local:8086/loadtest
+  arguments: -o xk6-influxdb=http://influxdb2.influxdb.svc.cluster.local:80 ## InfluxDB 2系 を使用
   script:
     configMap:
       name: k6-operator-example01
       file: load-test.js
+  runner:
+    image: ren1007/k6:latest ## カスタムイメージを使用
+    env:
+      - name: K6_INFLUXDB_ORGANIZATION
+        value: "loadtest_organization"
+      - name: K6_INFLUXDB_BUCKET
+        value: "loadtest_result"
+      - name: K6_INFLUXDB_TOKEN
+        value: "admin_token"
+      - name: K6_INFLUXDB_PUSH_INTERVAL
+        value: "30s"
+    resources:
+      requests:
+        memory: "2Gi"
+        cpu: "1"
+      limits:
+        memory: "4Gi"
+        cpu: "2"
 ```
 
 ![influxdb-2587](https://github.com/GotoRen/k6-operator-playground/assets/63791288/9f58d490-f14d-4d37-9e66-b82b497ef7a9)
-
-- InfluxDB に接続してデータを確認
-
-```
-### 接続
-root@influxdb-0:/# influx
-Connected to http://localhost:8086 version 1.8.3
-InfluxDB shell version: 1.8.3
->
-
-### テーブルを選択
-> USE loadtest
-Using database loadtest
-
-### データを確認
-> SELECT * FROM http_req_duration LIMIT 10
-name: http_req_duration
-time                expected_response instance_id job_name                method name               proto    scenario status tls_version url                value
-----                ----------------- ----------- --------                ------ ----               -----    -------- ------ ----------- ---                -----
-1696396044625618631 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 177.581759
-1696396044637129974 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 179.924661
-1696396044638339712 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 172.597401
-1696396044684120812 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 177.603871
-1696396044713006325 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 178.812152
-1696396044727631651 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 172.663508
-1696396044764963889 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 173.624092
-1696396044797198952 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 172.597831
-1696396044799971307 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 173.752688
-1696396044810442320 true              1           k6-operator-example01-1 GET    https://test.k6.io HTTP/1.1 default  200    tls1.3      https://test.k6.io 171.931634
-```
 
 ## 参考
 
