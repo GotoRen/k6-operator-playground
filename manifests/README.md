@@ -1,13 +1,5 @@
 # manifests
 
-## ネームスペースリスト
-
-| Namespace   | Resource            |
-| :---------- | :------------------ |
-| monitoring  | prometheus, grafana |
-| influxdb    | influxdb            |
-| k6-operator | k6-operator         |
-
 ## 使い方
 
 - k3d でクラスタを構築
@@ -93,6 +85,12 @@ $ kubectl port-forward -n monitoring svc/grafana 3000:80
     - https://grafana.com/grafana/dashboards/2587-k6-load-testing-results/
 
 ## Prometheus ダッシュボード確認
+
+```shell
+$ kubectl port-forward -n monitoring svc/prometheus-server 9090:80
+```
+
+## InfluxDB ダッシュボード確認
 
 ```shell
 $ kubectl port-forward -n monitoring svc/prometheus-server 9090:80
