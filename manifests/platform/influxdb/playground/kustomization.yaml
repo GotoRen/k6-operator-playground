@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/env: playground
+      app.kubernetes.io/owner: sre
+      app.kubernetes.io/group: monitoring
+    includeTemplates: true
+helmCharts:
+  - name: influxdb2
+    repo: https://helm.influxdata.com
+    version: 2.1.2
+    releaseName: influxdb2 ## InfluxDB 2系
+    valuesFile: ./values.yaml
+    namespace: influxdb
+    includeCRDs: true
