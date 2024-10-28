@@ -972,13 +972,13 @@ grafana:
   ## Timezone for the default dashboards
   ## Other options are: browser or a specific timezone, i.e. Europe/Luxembourg
   ##
-  defaultDashboardsTimezone: utc
+  defaultDashboardsTimezone: jst
 
   ## Editable flag for the default dashboards
   ##
   defaultDashboardsEditable: true
 
-  adminPassword: prom-operator
+  adminPassword: password
 
   rbac:
     ## If true, Grafana PSPs will be created
@@ -1119,7 +1119,16 @@ grafana:
 
   ## Configure additional grafana datasources (passed through tpl)
   ## ref: http://docs.grafana.org/administration/provisioning/#datasources
-  additionalDataSources: []
+  additionalDataSources:
+    - name: InfluxDB
+      type: influxdb
+      url: http://influxdb2.influxdb.svc.cluster.local:80
+      secureJsonData:
+        token: admin_token
+      jsonData:
+        version: Flux
+        organization: loadtest_organization
+        defaultBucket: loadtest_result
   # - name: prometheus-sample
   #   access: proxy
   #   basicAuth: true

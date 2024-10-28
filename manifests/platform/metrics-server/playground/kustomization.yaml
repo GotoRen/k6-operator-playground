@@ -6,11 +6,12 @@ labels:
       app.kubernetes.io/owner: sre
       app.kubernetes.io/group: monitoring
     includeTemplates: true
+namespace: kube-system
 helmCharts:
-  - name: influxdb2
-    repo: https://helm.influxdata.com
-    version: 2.1.2
-    releaseName: influxdb2 ## InfluxDB 2系
+  - name: metrics-server
+    repo: https://kubernetes-sigs.github.io/metrics-server
+    releaseName: metrics-server
+    version: 3.12.2
     valuesFile: ./values.yaml
-    namespace: influxdb
+    namespace: kube-system
     includeCRDs: true

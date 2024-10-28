@@ -20,7 +20,7 @@
 
 ```yaml
 apiVersion: k6.io/v1alpha1
-kind: K6
+kind: TestRun
 metadata:
   name: k6-operator-example01
   namespace: k6-operator
@@ -43,7 +43,7 @@ spec:
 
 ```yaml
 apiVersion: k6.io/v1alpha1
-kind: K6
+kind: TestRun
 metadata:
   name: k6-operator-example01
   namespace: k6-operator

@@ -1,19 +1,26 @@
 apiVersion: k6.io/v1alpha1
-kind: K6
+kind: TestRun
 metadata:
   name: k6-operator-example01
   namespace: k6-operator
 spec:
   parallelism: 1
-  arguments: -o experimental-prometheus-rw
+  arguments: -o xk6-influxdb=http://influxdb2.influxdb.svc.cluster.local:80?bucket=$(K6_INFLUXDB_BUCKET)&org=$(K6_INFLUXDB_ORGANIZATION)&token=$(K6_INFLUXDB_TOKEN)
   script:
     configMap:
       name: k6-operator-example01
       file: load-test.js
   runner:
+    image: ren1007/k6-custom-amd64:latest
     env:
-      - name: K6_PROMETHEUS_RW_SERVER_URL
-        value: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090/api/v1/write
+      - name: K6_INFLUXDB_ORGANIZATION
+        value: "loadtest_organization"
+      - name: K6_INFLUXDB_BUCKET
+        value: "loadtest_result"
+      - name: K6_INFLUXDB_TOKEN
+        value: "admin_token"
+      - name: K6_INFLUXDB_PUSH_INTERVAL
+        value: "60s"
     metadata:
       labels: # k6 ワークロード（Sender Pod）に伝搬するラベルを設定
         app.kubernetes.io/owner: sre
@@ -21,3 +28,10 @@ spec:
         app.kubernetes.io/subgroup: load-testing
         app.kubernetes.io/name: k6
         app.kubernetes.io/managed-by: cli
+    resources:
+      requests:
+        memory: "2Gi"
+        cpu: "1"
+      limits:
+        memory: "4Gi"
+        cpu: "2"

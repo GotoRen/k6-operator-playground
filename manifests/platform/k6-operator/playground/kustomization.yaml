@@ -9,7 +9,7 @@ labels:
 helmCharts:
   - name: k6-operator
     repo: https://grafana.github.io/helm-charts
-    version: 3.8.0
+    version: 3.9.0
     releaseName: k6-operator
     valuesFile: ./values.yaml
     namespace: k6-operator
