@@ -25,4 +25,4 @@ yq ea '
 
 kubectl apply -f "${SCENARIOS_DIR}/k6/k6.yaml"
 
-echo "Applied K6 CR"
+echo "Applied TestRun CR"

@@ -22,6 +22,6 @@ yq ea '
   .spec.script.volumeClaim.file = "root/REPOSITORY_NAME/project-scenarios/'"${PROJECT}"'/'"${SCRIPT}"'" |
   .spec.arguments = "'"${ARGS}"'"
 ' "k8s/resources/${PROJECT}/k6/k6.yaml" | kubectl apply -f -
-echo "Applied K6 CR"
+echo "Applied TestRun CR"
 
 kubectl get k6 "$(yq ea '.metadata.name' k8s/resources/${PROJECT}/k6/k6.yaml)" -n "${PROJECT}" -o yaml
